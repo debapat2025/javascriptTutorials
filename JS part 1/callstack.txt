@@ -1,0 +1,186 @@
+## What is a Call Stack in JavaScript?
+
+The **Call Stack** is a mechanism JavaScript uses to keep track of **which function is currently running and what should run next**.
+
+Think of it as a **stack of execution contexts**.
+
+It follows **LIFO**:
+
+> **Last In, First Out**
+
+The function added last to the stack is the first one to be removed.
+
+### Simple example
+
+```javascript
+function first() {
+    second();
+}
+
+function second() {
+    third();
+}
+
+function third() {
+    console.log("Hello");
+}
+
+first();
+```
+
+When `first()` is called, the call stack looks like:
+
+```text
+┌─────────────┐
+│   first()   │
+├─────────────┤
+│   Global    │
+└─────────────┘
+```
+
+Then `first()` calls `second()`:
+
+```text
+┌─────────────┐
+│   second()  │  ← currently running
+├─────────────┤
+│   first()   │
+├─────────────┤
+│   Global    │
+└─────────────┘
+```
+
+Then `second()` calls `third()`:
+
+```text
+┌─────────────┐
+│   third()   │  ← currently running
+├─────────────┤
+│   second()  │
+├─────────────┤
+│   first()   │
+├─────────────┤
+│   Global    │
+└─────────────┘
+```
+
+When `third()` finishes, it is **popped**:
+
+```text
+second()
+first()
+Global
+```
+
+Then `second()` finishes:
+
+```text
+first()
+Global
+```
+
+Finally, `first()` finishes:
+
+```text
+Global
+```
+
+---
+
+### How Call Stack and Execution Context are related
+
+This is an important interview concept:
+
+**Execution Context** = the environment in which code executes.
+
+**Call Stack** = the structure that keeps track of those execution contexts.
+
+For example:
+
+```javascript
+function add(a, b) {
+    return a + b;
+}
+
+let result = add(10, 20);
+```
+
+When JavaScript starts:
+
+```text
+Call Stack
+┌────────────────────┐
+│ Global Context     │
+└────────────────────┘
+```
+
+When `add()` is called:
+
+```text
+Call Stack
+┌────────────────────┐
+│ add() Context      │
+├────────────────────┤
+│ Global Context     │
+└────────────────────┘
+```
+
+When `add()` returns:
+
+```text
+Call Stack
+┌────────────────────┐
+│ Global Context     │
+└────────────────────┘
+```
+
+### What happens if the stack becomes too large?
+
+For example:
+
+```javascript
+function test() {
+    test();
+}
+
+test();
+```
+
+`test()` keeps calling itself:
+
+```text
+test()
+test()
+test()
+test()
+test()
+...
+```
+
+Eventually JavaScript cannot add any more execution contexts and throws:
+
+```text
+RangeError: Maximum call stack size exceeded
+```
+
+This is called a **stack overflow**.
+
+### Interview definition
+
+> **The Call Stack is a LIFO data structure used by JavaScript to keep track of execution contexts and function calls. When a function is called, its execution context is pushed onto the stack, and when it finishes, it is popped from the stack.**
+
+**Connection to your previous topic:**
+
+```text
+JavaScript Code
+      ↓
+Execution Context
+      ↓
+Call Stack
+      ↓
+Function execution
+      ↓
+Context removed from stack
+```
+
+This is also the foundation for understanding the **Event Loop**, because the Event Loop checks whether the **Call Stack is empty** before moving asynchronous callbacks into it.

@@ -1,0 +1,160 @@
+An **execution context** is the environment in which JavaScript code is executed. It contains all the information the JavaScript engine needs to run your code, such as variables, functions, and the value of `this`.
+
+### Types of Execution Context
+
+1. **Global Execution Context (GEC)**
+
+   * Created when the JavaScript program starts.
+   * There is only one global execution context.
+   * Global variables and functions are stored here.
+   * `this` refers to the global object (`window` in browsers).
+
+2. **Function Execution Context (FEC)**
+
+   * Created whenever a function is called.
+   * Each function call gets its own execution context.
+   * Contains:
+
+     * Function arguments
+     * Local variables
+     * Inner function declarations
+     * The value of `this`
+
+3. **Eval Execution Context**
+
+   * Created when code inside `eval()` is executed.
+   * Rarely used because `eval()` is generally discouraged.
+
+---
+
+### Phases of an Execution Context
+
+Every execution context is created in **two phases**:
+
+#### 1. Memory Creation Phase (Creation Phase)
+
+* Memory is allocated for variables and functions.
+* Variables declared with `var` are initialized as `undefined`.
+* Function declarations are stored completely in memory.
+* `let` and `const` are allocated but remain in the **Temporal Dead Zone (TDZ)** until initialized.
+
+Example:
+
+```javascript
+console.log(a); // undefined
+
+var a = 10;
+
+function greet() {
+    console.log("Hello");
+}
+```
+
+During the creation phase:
+
+* `a → undefined`
+* `greet → function definition`
+
+---
+
+#### 2. Execution Phase
+
+* Code executes line by line.
+* Variables receive their assigned values.
+* Functions are invoked when called.
+
+---
+
+### Example
+
+```javascript
+var x = 10;
+
+function add(a, b) {
+    var sum = a + b;
+    return sum;
+}
+
+var result = add(5, 3);
+```
+
+Execution flow:
+
+1. **Global Execution Context** is created.
+
+   * `x = undefined`
+   * `add = function`
+   * `result = undefined`
+
+2. Execution begins.
+
+   * `x = 10`
+   * `add(5, 3)` is called.
+
+3. A new **Function Execution Context** is created.
+
+   * `a = 5`
+   * `b = 3`
+   * `sum = undefined`
+
+4. Execution inside the function.
+
+   * `sum = 8`
+   * Returns `8`
+
+5. Function execution context is removed from the **call stack**.
+
+   * `result = 8`
+
+---
+
+### Call Stack
+
+JavaScript manages execution contexts using a **Call Stack (LIFO)**.
+
+Example:
+
+```javascript
+function one() {
+    two();
+}
+
+function two() {
+    three();
+}
+
+function three() {
+    console.log("Done");
+}
+
+one();
+```
+
+Call stack:
+
+```
+Global Execution Context
+        ↓
+one()
+        ↓
+two()
+        ↓
+three()
+```
+
+After `three()` finishes, its execution context is removed, followed by `two()`, then `one()`, leaving only the global execution context.
+
+---
+
+### Key Points
+
+* An **execution context** is the environment where JavaScript code runs.
+* JavaScript first creates the **Global Execution Context**.
+* Every function call creates a new **Function Execution Context**.
+* Each execution context has:
+
+  * Memory Creation Phase
+  * Execution Phase
+* Execution contexts are managed by the **Call Stack**.
+
+This concept is fundamental to understanding **hoisting, scope, closures, the call stack, and how JavaScript executes code**.

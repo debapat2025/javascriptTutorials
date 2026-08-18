@@ -11,6 +11,10 @@ let returnstr= str.replace(/\s/g," ")
 // let returnstr= str.replace(/\s+/g," ")
 //console.log(returnstr)
 
+// let str="         hello  world";
+//  let newstr= str.replaceAll(" ","")
+//  console.log(newstr)
+
 //2. indexof cases -1 if not found
 let strnew="hello  world"
 console.log(strnew.indexOf("ssf"))
@@ -182,3 +186,25 @@ if(str2[0]===str2[str2.length-1]){
 else{
     console.log("no")
 }
+
+//16. each vowel and it's occurence
+let str = "mArrEgii";
+let count = 0;
+let vow = {};
+
+for (let char of str) {
+    char = char.toLowerCase();
+
+    if ("aeiou".includes(char)) {
+        count++;
+
+        if (vow[char]) {
+            vow[char]++;
+        } else {
+            vow[char] = 1;
+        }
+    }
+}
+
+console.log(count);
+console.log(vow);
