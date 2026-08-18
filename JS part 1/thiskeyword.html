@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var name="Debarati Patwari"
+let user={
+    name:"deba",
+    age:30,
+    // details:()=>{
+    //     console.log("hello guyes my city is "+address.city+"my name is"+this)
+    // }
+
+    //Case 2: Normal function inside setTimeout
+
+    // printDetails:function(){
+    //     setTimeout(function(){
+    //         console.log("hello",this.name ) //output Debarati Patwari because this is window object for normal function also.
+    //     },0)
+    // }
+
+       printDetails:function(){
+        setTimeout(()=>{
+            console.log("hello",this.name ) //now it is use it's parent object because arrow function does not have it's own this keyword.
+        },0)
+    }
+}
+
+let address={
+    city:"katwa",
+    dist:"burdwan"
+}
+// user.details()
+user.printDetails()
+    </script>
+</body>
+</html>

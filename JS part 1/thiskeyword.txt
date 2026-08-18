@@ -1,0 +1,516 @@
+Sure. Your three cases are testing the **three most important `this` rules in JavaScript**.
+
+First, remember:
+
+```js
+var name = "Debarati Patwari";
+
+let user = {
+    name: "deba",
+    age: 30
+};
+```
+
+Because this is a **classic browser `<script>`**, top-level `var name` becomes:
+
+```js
+window.name = "Debarati Patwari";
+```
+
+But `user.name` is:
+
+```js
+"deba"
+```
+
+---
+
+## Case 1: Arrow function as object method
+
+```js
+let user = {
+    name: "deba",
+
+    details: () => {
+        console.log(this.name);
+    }
+};
+
+user.details();
+```
+
+### Output
+
+```text
+Debarati Patwari
+```
+
+### Why?
+
+The important point is:
+
+> **Arrow functions do not have their own `this`.**
+
+So this:
+
+```js
+details: () => {
+    console.log(this.name);
+}
+```
+
+does **not** mean:
+
+```js
+this === user
+```
+
+Even though you call:
+
+```js
+user.details();
+```
+
+For a normal function, the caller can determine `this`.
+
+But an arrow function takes `this` from its **lexical/outer scope**.
+
+In your browser `<script>`:
+
+```js
+this === window
+```
+
+So the arrow function effectively sees:
+
+```js
+this === window
+```
+
+Therefore:
+
+```js
+this.name
+```
+
+means:
+
+```js
+window.name
+```
+
+and:
+
+```js
+window.name
+// "Debarati Patwari"
+```
+
+### Important
+
+This does **NOT** happen:
+
+```js
+this === user
+```
+
+because arrow functions don't get `this` from:
+
+```js
+user.details()
+```
+
+---
+
+# Case 2: Normal function inside `setTimeout`
+
+Your second code:
+
+```js
+let user = {
+    name: "deba",
+
+    printDetails: function() {
+        setTimeout(function() {
+            console.log("hello", this.name);
+        }, 0);
+    }
+};
+
+user.printDetails();
+```
+
+### Output
+
+```text
+hello Debarati Patwari
+```
+
+There are actually **two functions** here:
+
+```js
+printDetails: function() {
+```
+
+and:
+
+```js
+setTimeout(function() {
+    console.log("hello", this.name);
+}, 0);
+```
+
+First:
+
+```js
+user.printDetails();
+```
+
+is a normal function call through `user`.
+
+Therefore inside `printDetails`:
+
+```js
+this === user
+```
+
+So you might think the inner function will also have:
+
+```js
+this === user
+```
+
+But **it doesn't**.
+
+The inner function is a completely separate normal function:
+
+```js
+function() {
+    console.log("hello", this.name);
+}
+```
+
+Its `this` is determined separately.
+
+In a browser, the callback invoked by `setTimeout` runs with `this` as the global object (`window` in this context).
+
+Therefore:
+
+```js
+this === window
+```
+
+and:
+
+```js
+this.name
+```
+
+becomes:
+
+```js
+window.name
+```
+
+which is:
+
+```text
+Debarati Patwari
+```
+
+So:
+
+```text
+hello Debarati Patwari
+```
+
+---
+
+# Case 3: Arrow function inside `setTimeout`
+
+Now your current code:
+
+```js
+let user = {
+    name: "deba",
+
+    printDetails: function() {
+        setTimeout(() => {
+            console.log("hello", this.name);
+        }, 0);
+    }
+};
+
+user.printDetails();
+```
+
+### Output
+
+```text
+hello deba
+```
+
+This is the interesting one.
+
+Let's go step by step.
+
+### Step 1
+
+You call:
+
+```js
+user.printDetails();
+```
+
+`printDetails` is a **normal function**:
+
+```js
+printDetails: function() {
+```
+
+Because you called it as:
+
+```js
+user.printDetails();
+```
+
+inside `printDetails`:
+
+```js
+this === user
+```
+
+Therefore:
+
+```js
+this.name
+```
+
+would be:
+
+```js
+user.name
+```
+
+which is:
+
+```text
+deba
+```
+
+---
+
+### Step 2
+
+Inside it you create an arrow function:
+
+```js
+setTimeout(() => {
+    console.log("hello", this.name);
+}, 0);
+```
+
+The arrow function does **not** create its own `this`.
+
+So it asks:
+
+> "What is `this` in my surrounding function?"
+
+The surrounding function is:
+
+```js
+printDetails: function() {
+```
+
+And inside that function:
+
+```js
+this === user
+```
+
+Therefore the arrow function **inherits**:
+
+```js
+this === user
+```
+
+So:
+
+```js
+this.name
+```
+
+becomes:
+
+```js
+user.name
+```
+
+and:
+
+```js
+user.name
+// "deba"
+```
+
+Therefore:
+
+```text
+hello deba
+```
+
+---
+
+# Compare all 3
+
+### Case 1 — Arrow directly in object
+
+```js
+let user = {
+    name: "deba",
+
+    details: () => {
+        console.log(this.name);
+    }
+};
+```
+
+Arrow has no own `this`.
+
+It gets `this` from the outer script:
+
+```text
+this → window
+```
+
+Therefore:
+
+```text
+window.name → Debarati Patwari
+```
+
+**Output:**
+
+```text
+Debarati Patwari
+```
+
+---
+
+### Case 2 — Normal function inside `setTimeout`
+
+```js
+printDetails: function() {
+    setTimeout(function() {
+        console.log(this.name);
+    }, 0);
+}
+```
+
+The inner normal function gets its **own `this`**.
+
+In the browser timeout callback:
+
+```text
+this → window
+```
+
+Therefore:
+
+```text
+window.name → Debarati Patwari
+```
+
+**Output:**
+
+```text
+Debarati Patwari
+```
+
+---
+
+### Case 3 — Arrow function inside `printDetails`
+
+```js
+printDetails: function() {
+    setTimeout(() => {
+        console.log(this.name);
+    }, 0);
+}
+```
+
+`printDetails` is called as:
+
+```js
+user.printDetails();
+```
+
+Therefore:
+
+```text
+printDetails this → user
+```
+
+The arrow function inherits that `this`:
+
+```text
+arrow this → user
+```
+
+Therefore:
+
+```text
+user.name → deba
+```
+
+**Output:**
+
+```text
+deba
+```
+
+---
+
+## The easiest way to remember it
+
+Think of **normal functions** as saying:
+
+> "I will decide my own `this` based on how I am called."
+
+Think of **arrow functions** as saying:
+
+> "I don't have my own `this`. I'll borrow `this` from my parent/outer scope."
+
+So your third example works perfectly for callbacks:
+
+```js
+printDetails: function () {
+    setTimeout(() => {
+        console.log(this.name);
+    }, 0);
+}
+```
+
+because:
+
+```text
+user.printDetails()
+       ↓
+this = user
+       ↓
+arrow function borrows this
+       ↓
+this = user
+       ↓
+this.name = "deba"
+```
+
+Whereas:
+
+```js
+setTimeout(function () {
+    console.log(this.name);
+}, 0);
+```
+
+creates a **new normal function**, so it doesn't preserve the `this` from `printDetails`.
