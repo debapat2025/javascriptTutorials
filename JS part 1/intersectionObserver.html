@@ -1,0 +1,45 @@
+<!-- The IntersectionObserver API is a browser API that lets you know when an element enters or leaves the viewport (or another container) without constantly listening to scroll events.
+ It's much more efficient than manually checking an element's position on every scroll. -->
+
+ <!-- Common use cases
+Lazy-loading images
+Infinite scrolling
+Triggering animations when elements become visible
+Tracking ad visibility
+Analytics (e.g., how long content is visible) -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+<body>
+    <div id="blog1" style="height: 100vh; background-color: lightblue;">
+        <h1>Scroll down to see the effect</h1>
+    </div>
+     <div id="blog2" style="height: 300px; background-color: rgb(213, 230, 173);">
+        <h1>Scroll down to see the effect</h1>
+    </div>
+     <div id="blog3" style="height: 400px; background-color: lightcoral;">
+        <h1>Scroll down to see the effect</h1>
+    </div>
+
+    <script>
+        const target = document.getElementById('blog3');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                console.log(entry);
+                if (entry.isIntersecting) {
+                    console.log('Element is in view');
+                } else {
+                    console.log('Element is out of view');
+                }
+            });
+        });
+        observer.observe(target);
+    </script>
+</body>
+</html>

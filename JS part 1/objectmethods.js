@@ -84,3 +84,74 @@ user.age = 35;
 user.city = "Kolkata";
 
 console.log(user); //{ name: 'Debarati', age: 30 }
+
+
+
+// 7. Object.seal()
+const user = {
+    name: "Debarati",
+    age: 30
+};
+
+Object.seal(user);
+
+user.age = 35;
+user.city = "Kolkata";
+
+console.log(user); //{ name: 'Debarati', age: 35 }
+
+
+//8. Object.create()
+const person = {
+    greet() {
+        console.log("Hello");
+    }
+};
+
+const user = Object.create(person);
+
+user.greet();
+
+
+
+let user={
+    name:"Debarati",
+    age:20
+}
+
+let student = Object.create(user);
+
+
+
+console.log(student.name)
+
+
+// 9. Object.fromEntries()
+
+// Converts key-value pairs into an object.
+
+const entries = [
+    ["name", "Debarati"],
+    ["age", 30]
+];
+
+const user = Object.fromEntries(entries);
+
+console.log(user);
+
+
+// 10. Object.is()
+
+// Checks whether two values are the same using a slightly different comparison rule from ===.
+
+console.log(Object.is(10, 10));
+// true
+
+console.log(Object.is("hello", "hello"));
+// true
+
+console.log(Object.is(NaN, NaN));
+// true
+
+console.log(NaN === NaN);
+// false
