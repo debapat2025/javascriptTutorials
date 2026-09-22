@@ -1,0 +1,121 @@
+//1.
+function abc(a,...b){
+console.log(typeof b,b) //object [ 30, 'krishna', 50 ]
+}
+abc(10,30,"krishna",50)
+
+
+//2
+ console.log(a);
+var a= 10 ; // undefined
+
+//3. seprate string and char and mke anothe array
+let arr = [1,5,"dgdg","f",4,5]
+
+function separate(arr){
+     let arr2=[];
+for (let i of arr){
+   
+    if(typeof i=== "string"){
+        arr2.push(i)
+    }
+   
+}
+ console.log("new array is",arr2)
+}
+
+separate(arr)
+
+
+
+// let arr = [1, 5, "dgdg", "f", 4, 5];
+
+// let result = arr.filter(item => typeof item === "string");
+
+// console.log(result);
+
+
+//4. type of null is object
+console.log(typeof null) // object
+console.log(typeof undefined) // undefined
+console.log(typeof NaN) // number
+
+
+
+//5.first order/class function
+// First-Class Function
+
+// A language has first-class functions when functions can be treated like any other value.
+
+// In JavaScript, a function can be:
+
+// Stored in a variable
+// Passed as an argument to another function
+// Returned from another function
+// Stored in an array/object
+
+//6.callback function : which is passed as an argument to another funtion. here greet is a callback function which is passed as an argument to final function
+function greet(name){
+    console.log("hello"+name)
+}
+
+function final(callbackfun){
+    callbackfun("Debarati")
+} // final is higher oorder function which takes another function as an argument
+
+final(greet)
+
+
+//html css
+//7.<figcaption> is an HTML5 semantic tag used to provide a caption or description for a <figure> element.
+
+// <figure>
+//     <img src="flower.jpg" alt="A red flower">
+//     <figcaption>A beautiful red flower</figcaption>
+// </figure>
+
+//8.If you mean required in HTML, it is an attribute used to make a form field mandatory.
+{/* <form>
+  <label>Name:</label>
+  <input type="text" required>
+
+  <button type="submit">Submit</button>
+</form> */}
+
+//
+
+//9. em tag vs i tag
+// Both <em> and <i> usually appear italic, but their meaning is different.
+// <em> means the text should be emphasized.
+//     <p>I <em>really</em> like JavaScript.</p>
+
+//     <i> is used for text that is visually differentiated from the surrounding text, such as:
+// Technical terms
+// Foreign words
+// Scientific names
+// Thoughts
+// Titles or terms that need an alternate voice
+
+
+
+//10. Image map
+//An image map allows you to make different areas of a single image clickable, with each area linking to a different URL or action.
+
+
+
+//11.An empty element is an HTML element that does not have any content or closing tag.
+// | Element    | Purpose                      |
+// | ---------- | ---------------------------- |
+// | `<br>`     | Line break                   |
+// | `<hr>`     | Horizontal/thematic break    |
+// | `<img>`    | Displays an image            |
+// | `<input>`  | Creates an input field       |
+// | `<meta>`   | Metadata                     |
+// | `<link>`   | Links external resources     |
+// | `<area>`   | Defines an image-map area    |
+// | `<source>` | Media source                 |
+// | `<track>`  | Text tracks for media        |
+// | `<wbr>`    | Optional word-break position |
+
+
+//12. 

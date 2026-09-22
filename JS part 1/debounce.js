@@ -5,14 +5,14 @@
 
  
  //debouncing
- let timer;
-function debounceSearch() {
-    clearTimeout(timer);
+//  let timer;
+// function debounceSearch() {
+//     clearTimeout(timer);
 
-    timer = setTimeout(() => {
-        getData();
-    }, 500);
-}
+//     timer = setTimeout(() => {
+//         getData();
+//     }, 500);
+// }
 
 // Debouncing is a technique in JavaScript used to delay executing a function until the user stops triggering it for a certain amount of time.
 
