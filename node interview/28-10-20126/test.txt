@@ -1,0 +1,49 @@
+1.What is Node.js?
+ans: 
+Node.js is a runtime environment that allows us to run JavaScript outside the browser.
+
+Normally, JavaScript runs inside a browser like Chrome. With Node.js, we can use JavaScript to build backend applications, APIs, servers, and database-connected applications.
+
+Node.js is an open-source, cross-platform JavaScript runtime environment built on Chrome's V8 JavaScript engine. It is commonly used to develop scalable backend applications and APIs.
+
+2. diff: JavaScript is the language; Node.js is the environment in which that language can run on the server.
+
+3. node js is single threaded even driven architechture.
+
+4.what kind of api function is supported by node js?
+
+Ans: Node.js APIs are built-in features that help us perform tasks such as working with files, creating servers, handling URLs, and managing asynchronous operations.
+
+Node.js API / Module	Purpose	             Example
+fs	              Read and write files	Read a text file
+http	           Create an HTTP server	Build a basic web server
+path	             Work with file paths	Join folder and file names
+os	             Get operating system information	Check CPU details
+url             	Parse and work with URLs	Extract query parameters
+events	Handle and emit events	Trigger a custom event
+crypto	Cryptographic operations	Generate hashes
+stream	Process data in chunks	Read a large file
+buffer	Handle binary data	Work with file or network data
+timers	Schedule callbacks	Use setTimeout()
+
+What about GET, POST, PUT, PATCH, and DELETE?
+These are HTTP methods, not built-in Node.js API modules. They are used when creating backend APIs.
+
+
+5.
+Synchronous vs Asynchronous in JavaScript and Node.js
+In simple words:
+- Synchronous: Code executes one task at a time. The next task waits until the current task finishes.
+- Asynchronous: A task can start and allow other code to run while waiting for the task to finish.
+
+6. 
+what you use promises or async await?
+My preference is **async/await** because it makes asynchronous code easier to read, understand, and maintain. I usually use async/await with try-catch for error handling when working with API calls, database queries, and other asynchronous operations.
+
+However, I also understand Promises and use methods like `Promise.all()` when I need to execute multiple independent asynchronous operations concurrently.
+
+So, I prefer async/await for readability, but I choose the approach depending on the requirement.
+
+Both Promises and async/await are used to handle asynchronous operations in JavaScript, such as API calls, database queries, and file reading.
+
+The main difference is that Promises use methods like .then() and .catch(),
