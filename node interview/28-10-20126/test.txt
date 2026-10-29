@@ -1,3 +1,6 @@
+https://www.youtube.com/watch?v=XyUjR32sGEA
+
+
 1.What is Node.js?
 ans: 
 Node.js is a runtime environment that allows us to run JavaScript outside the browser.
@@ -47,3 +50,181 @@ So, I prefer async/await for readability, but I choose the approach depending on
 Both Promises and async/await are used to handle asynchronous operations in JavaScript, such as API calls, database queries, and file reading.
 
 The main difference is that Promises use methods like .then() and .catch(),
+
+
+7. module in node js?
+ans:
+In Node.js, a module is a separate file that contains code (functions, variables, classes, etc.) that we can reuse in other files.
+
+A module in Node.js is a reusable piece of code organized in a separate file. 
+It helps us organize our application and maintain code easily. 
+Node.js supports built-in modules, local modules, and third-party modules.
+ We can share code using module.exports and import it using require() in CommonJS, or use export and import in ES modules.
+
+
+8. npm?
+ans:
+"NPM stands for Node Package Manager.
+ It helps us install and manage third-party packages and dependencies in a Node.js project.
+ It also helps us run scripts and share our packages. 
+
+ 9.how to start node js in our application
+
+ To start a Node.js application, I create a project, initialize it using npm init, 
+ write my JavaScript code, and execute it using node app.js. 
+ For backend APIs, I commonly use Express.js and start the server using app.listen().
+
+
+ 10.
+ Yes, we can create APIs without Express.js by using Node.js's built-in http module. We can create a server using http.createServer(), handle requests and responses, and define routes manually. 
+ However, Express.js simplifies routing, middleware, and request handling, so it is commonly used for backend development.
+
+ 11.middleware/
+ asnd:
+ In Node.js, especially when using Express.js, middleware is a function that runs between receiving a request and sending a response.
+ Middleware can check a request, verify a user, log information, process data, or handle errors before the request reaches the final route handler.
+
+ req — contains information about the incoming request.
+
+
+
+res — lets you send a response to the client.
+
+
+
+next — passes control to the next middleware or route handler.
+
+
+12. how does node js mainatin concurency even afer being single threded?
+ans:
+Node.js maintains concurrency even though JavaScript runs on a single main thread by using the Event Loop, asynchronous operations, 
+and the operating system (OS) or libuv thread pool.
+
+Node.js maintains concurrency through its event-driven, non-blocking architecture. 
+The JavaScript code runs on a single main thread, while asynchronous I/O operations are handled by the operating system or libuv's thread pool, depending on the operation. 
+The event loop coordinates the execution of callbacks when operations complete.
+ This allows Node.js to handle multiple requests efficiently without creating a separate JavaScript thread for each request
+
+
+ 13. control flow in node js?
+ ans:
+ Control flow in Node.js refers to the order in which statements and functions execute. It includes sequential execution, conditional statements, loops, error handling, and asynchronous operations. 
+ In Node.js, callbacks, promises, and async/await help manage asynchronous control flow, while the event loop coordinates asynchronous callbacks
+
+ 14. Event Loop?
+ ans:
+ The Event Loop in Node.js is a mechanism that allows Node.js to handle multiple tasks efficiently
+  without blocking the main thread while waiting for operations like API calls, file reading, or database queries to finish.
+
+  In simple words, 
+  the Event Loop checks whether asynchronous tasks are completed and executes their callbacks when the main thread is available.
+
+  Final rule to remember:
+- Synchronous JavaScript runs first.
+- process.nextTick has special scheduling priority in typical CommonJS execution.
+- Promise reactions and other microtasks run at microtask checkpoints.
+- Timer, I/O, and setImmediate() callbacks run in their respective Event Loop phases.
+- Microtasks created inside callbacks are processed before normal event-loop processing continues.
+
+
+15.disadvantages of node js?
+ans:
+1.Node.js has some limitations. First, it is not ideal for CPU-intensive tasks because heavy computations can block the Event Loop and delay other requests.
+2.Second, complex asynchronous code can become difficult to maintain, although Promises and async/await help solve this problem.
+3.Third, its large npm ecosystem can introduce dependency and security risks. However, we can address these issues using Worker Threads, background jobs, proper error handling, and secure dependency management.
+
+
+16.Relational vs Non-Relational Database for Node.js
+Ans:
+Node.js supports both relational and non-relational databases. I would choose the database based on the application's requirements.
+For flexible document-based data, I can use MongoDB. For complex relationships, joins, and strong relational integrity, I would prefer PostgreSQL or MySQL. Node.js itself does not determine which database is best.
+
+17.What is REPL Environment in Node.js?
+
+Ans: REPL stands for Read–Eval–Print–Loop.
+
+It is an interactive environment in Node.js where you can write JavaScript code, execute it immediately, 
+and see the result without creating a JavaScript file.
+
+Term	Meaning	                        Example
+Read	Reads the code you enter	      10 + 20
+Eval	Evaluates or executes the code	       Calculates the expression
+Print	Displays the result	                30
+Loop	Waits for your next command	            You enter another expression
+
+
+18.
+package.json is the main configuration file of a Node.js project. It contains project information, scripts, dependencies, 
+development dependencies, 
+and other configuration details. We can create it using npm init or npm init -y. It helps us manage packages and run project commands easily
+
+
+package-lock.json is a file that records the exact versions of installed npm packages and their dependencies.
+
+19.
+Why do we use Express.js in Node.js?
+Express.js is a web framework for Node.js that makes it easier to build web servers and APIs.
+
+Node.js already provides a built-in http module to create servers, 
+but writing routes, handling requests, managing middleware, and handling errors can require more code.
+
+
+20.
+What is Event-Driven Programming in Node.js?
+ans:
+Event-driven programming is a programming approach in which the execution of a function depends on an event occurring.
+
+In simple words, when something happens, such as a user clicking a button, a file finishing reading, or a request arriving, the corresponding function is executed.
+
+Node.js uses event-driven programming extensively to handle asynchronous operations and events.
+
+"Event-driven programming is a programming approach where functions are executed in response to events.
+ Node.js uses this approach extensively for asynchronous I/O and event handling.
+  For example, we can use the built-in EventEmitter module to register listeners with on() and trigger events with emit().
+   This approach helps Node.js handle incoming requests and other asynchronous activities efficiently."
+
+Remember: on() registers an event listener, while emit() triggers an event.
+
+const EventEmitter = require("node:events");
+
+// Create an event emitter
+const event = new EventEmitter();
+
+// Register an event listener
+event.on("hello", () => {
+  console.log("Hello! Event occurred.");
+});
+
+// Trigger the event
+event.emit("hello");
+
+
+
+21.
+buffers:
+A Buffer in Node.js is used to store and handle binary data temporarily in memory.
+Binary data means data represented as bytes, such as images, videos, audio files, PDFs, and data received over a network.
+JavaScript strings handle text, but when Node.js works with raw file contents or network data, it often needs to work with bytes. That's where the Buffer class is useful.
+Node.js provides the built-in Buffer class.
+
+const buf = Buffer.from("Hello");
+
+console.log(buf);
+console.log(buf.toString());
+
+<Buffer 48 65 6c 6c 6f>
+Hello
+
+
+Buffer is a built-in feature in Node.js used to handle binary data in memory.
+ It is useful when working with files, images, videos, network requests, and streams. We can create a Buffer using methods such as Buffer.from() and Buffer.alloc(). 
+We can also convert Buffer data into a string using toString()
+
+
+22. 
+Steams:
+Streams in Node.js are used to read or write data in small chunks instead of loading the entire data into memory at once.
+Node.js has four types of streams: Readable, Writable, Duplex, and Transform. Streams are useful for handling large files, video streaming, file uploads, and network communication."
+
+What is pipe() in Node.js?
+pipe() connects a readable stream to a writable stream.
