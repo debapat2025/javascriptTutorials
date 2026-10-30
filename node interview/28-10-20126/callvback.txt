@@ -1,0 +1,13 @@
+Callback is a function passed as an argument to another function, 
+which is executed when required. In JavaScript, callbacks are commonly used for handling asynchronous operations like API calls, timers and file operations.
+
+function greet(name,callback){
+console.log("name is"+name);
+callback();
+}
+
+function sayhi(){
+    console.log("Hello guys")
+}
+
+greet("debarati",sayhi)
